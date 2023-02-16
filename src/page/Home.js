@@ -7,7 +7,7 @@ import { getCurrencies, getConversion } from '../store/currency/currencyActions'
 import { Grid } from '@mui/material';
 import { userCoursesModel } from '../models/userCourses';
 export const USD = {
-  "symbol": "$", "name": "US Dollar", "symbol_native": "$", "decimal_digits": 2, "rounding": 0, "code": "USD", "name_plural": "US dollars"
+  symbol: "$",  code: "USD",
 }
 function Home() {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function Home() {
 
   const handleCurrencyChange = useCallback((curr) => {
     setCurrency(curr);
-    if (prevCurrency.current && prevCurrency.current.code !== curr.code) {
+    if (prevCurrency.current && prevCurrency.current?.code !== curr?.code) {
       dispatch(getConversion(USD.code, curr.code))
     }
   }, [dispatch]);
@@ -66,7 +66,7 @@ function Home() {
     });
 
     return filteredData;
-  }, [currency.symbol]);
+  }, [currency]);
 
   const filteredData = useMemo(() => combineData(users, courses, searchTerm, conversionRate), [combineData, searchTerm, conversionRate, users, courses]);
   const tableData = useMemo(() => filteredData, [filteredData]);

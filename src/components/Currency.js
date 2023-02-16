@@ -8,15 +8,15 @@ import { USD } from '../page/Home';
 function CurrencySelector({ handleCurrencyChange, currency = USD }) {
   const currencies = useSelector(state => state.currency.currencies);
   const options = useMemo(() => Object.values(currencies), [currencies]);
-  const [value, setValue] = useState(currency.code);
+  const [value, setValue] = useState(USD.code);
 
   const handleSelectChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
 
   useEffect(() => {
-    const selectedCurrency = options.find((option) => option.code === value);
-    handleCurrencyChange(selectedCurrency);
+      const selectedCurrency = value && options.find((option) => option.code === value);
+      selectedCurrency && handleCurrencyChange(selectedCurrency);
   }, [options, value, handleCurrencyChange]);
 
   return (
