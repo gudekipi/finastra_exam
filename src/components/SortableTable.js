@@ -74,8 +74,8 @@ function SortableTable(props) {
                   <TableCell />
                   <TableCell />
                   <TableCell />
-                  <TableCell>{course.course_selection}</TableCell>
                   <TableCell>{course.course_name}</TableCell>
+                  <TableCell>{course.course_selection}</TableCell>
                   <TableCell>{course.semester}</TableCell>
                   <TableCell>{!loading ? course.semester_fee : <CircularProgress size={20} variant='indeterminate'/>}</TableCell>
                 </TableRow>
