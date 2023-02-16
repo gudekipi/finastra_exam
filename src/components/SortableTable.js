@@ -29,8 +29,9 @@ function SortableTable(props) {
 
   const sortedData = [...data].sort((a, b) => {
     if (a.phone === b.phone || a.email === b.email) {
-      return a.name.localeCompare(b.name);
-    } else if (order === "asc") {
+      return a["name"] > b["name"] ? 1 : -1;
+    } else 
+    if (order === "asc") {
       return a[orderBy] > b[orderBy] ? 1 : -1;
     } else {
       return a[orderBy] < b[orderBy] ? 1 : -1;
