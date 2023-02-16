@@ -6,13 +6,9 @@ import { getCourses } from '../store/courses/courseActions';
 import { getCurrencies, getConversion } from '../store/currency/currencyActions';
 import { Grid } from '@mui/material';
 import { userCoursesModel } from '../models/userCourses';
-
-
 export const USD = {
-  code: "USD",
-  symbol: '$'
+  "symbol": "$", "name": "US Dollar", "symbol_native": "$", "decimal_digits": 2, "rounding": 0, "code": "USD", "name_plural": "US dollars"
 }
-
 function Home() {
   const dispatch = useDispatch();
   const users = useSelector(state => state.user.users);
@@ -34,18 +30,17 @@ function Home() {
     prevCurrency.current = currency;
   }, [currency]);
 
-
   const handleSearchTermChange = useCallback((event) => {
     setSearchTerm(event.target.value);
   }, []);
 
   const handleCurrencyChange = useCallback((curr) => {
-    console.log(curr)
-    const prevCur = prevCurrency?.current
-    prevCur && dispatch(getConversion(USD.code, curr.code));
     setCurrency(curr);
-
+    if (prevCurrency.current && prevCurrency.current.code !== curr.code) {
+      dispatch(getConversion(USD.code, curr.code))
+    }
   }, [dispatch]);
+
 
   const combineData = useCallback((users, courses, searchTerm, conversionRate) => {
     const term = searchTerm.toLowerCase();

@@ -28,7 +28,6 @@ const currencySlice = createSlice({
       state.error = null;
     },
     fetchConversionSuccess: (state, action) => {
-      console.log(action.payload)
       state.loading = false;
       state.conversionRate = action.payload?.conversion_rate;
     },

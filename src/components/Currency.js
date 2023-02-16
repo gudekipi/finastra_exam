@@ -5,28 +5,26 @@ import { useSelector } from 'react-redux';
 import { USD } from '../page/Home';
 
 
-
 function CurrencySelector({ handleCurrencyChange, currency = USD }) {
-
   const currencies = useSelector(state => state.currency.currencies);
-  const [value, setValue] = useState(currency.code)
   const options = useMemo(() => Object.values(currencies), [currencies]);
-  const handleSelectChange = useCallback((e) => {
-    setValue(e.target.value)
-  }, [])
+  const [value, setValue] = useState(currency.code);
 
+  const handleSelectChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
 
   useEffect(() => {
-    let selectedValue = options.find((option) => option.code === value)
-    selectedValue && handleCurrencyChange(selectedValue)
-  }, [value, options, handleCurrencyChange])
+    const selectedCurrency = options.find((option) => option.code === value);
+    handleCurrencyChange(selectedCurrency);
+  }, [options, value, handleCurrencyChange]);
 
   return (
     <TextField
       select
       label="Select Currency"
       style={{ width: "30%", marginTop: 20 }}
-      value={value}
+      value={currency.code}
       onChange={handleSelectChange}
     >
       {options.map(currency => (
